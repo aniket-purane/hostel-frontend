@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getRoomById, updateRoom } from '../services/RoomService';
-import axios from 'axios';
 
 
 const EditRoom = () => {
