@@ -44,6 +44,7 @@ const RoomList = () => {
         }
     };
 
+    // ✅ Use this for canceling modal
     const handleCancelDelete = () => {
         setShowConfirmModal(false);
         setSelectedRoomId(null);
@@ -57,7 +58,6 @@ const RoomList = () => {
         <div className="container mt-4">
             <h2>Room List</h2>
 
-            {/* ➕ Add Room Button */}
             <button
                 className="btn btn-primary mb-3"
                 onClick={() => navigate("/add-room")}
@@ -65,7 +65,6 @@ const RoomList = () => {
                 ➕ Add Room
             </button>
 
-            {/* 🔍 Search Input */}
             <input
                 type="text"
                 className="form-control mb-3"
@@ -74,18 +73,16 @@ const RoomList = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
             />
 
-            {/* ⚠️ Error Message */}
             {error && (
                 <div className="alert alert-danger">
                     {error}
                 </div>
             )}
 
-            {/* 📋 Room Table */}
             <table className="table table-bordered text-center">
                 <thead>
                     <tr>
-                        <th>ID</th> {/* 👈 Room ID Column */}
+                        <th>ID</th>
                         <th>Room Number</th>
                         <th>Type</th>
                         <th>Capacity</th>
@@ -96,7 +93,7 @@ const RoomList = () => {
                 <tbody>
                     {filteredRooms.map((room) => (
                         <tr key={room.id}>
-                            <td>{room.id}</td> {/* 👈 DB ID दिसेल */}
+                            <td>{room.id}</td>
                             <td>{room.roomNumber}</td>
                             <td>{room.type}</td>
                             <td>{room.capacity}</td>
@@ -126,9 +123,10 @@ const RoomList = () => {
                     )}
                 </tbody>
             </table>
+
             <ConfirmDeleteModal
                 show={showConfirmModal}
-                onHide={() => setShowConfirmModal(false)}
+                onHide={handleCancelDelete} // ✅ ESLint-safe
                 onConfirm={handleConfirmDelete}
                 title="Delete Room"
                 message="Are you sure you want to delete this room?"
